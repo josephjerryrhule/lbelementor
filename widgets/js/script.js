@@ -64,16 +64,23 @@ document.addEventListener("DOMContentLoaded", function () {
   let isDragging = false;
   let initialY = 0;
 
-  dragImage.addEventListener("mousedown", function (e) {
+  dragImage.addEventListener("mousedown", startDragging);
+  dragImage.addEventListener("touchstart", startDragging);
+
+  function startDragging(e) {
+    e.preventDefault();
     isDragging = true;
     dragImage.classList.add("dragging");
 
-    initialY = e.clientY - dragImage.offsetTop;
-  });
+    initialY = e.clientY || e.touches[0].clientY - dragImage.offsetTop;
+  }
 
-  document.addEventListener("mousemove", function (e) {
+  document.addEventListener("mousemove", handleDragging);
+  document.addEventListener("touchmove", handleDragging);
+
+  function handleDragging(e) {
     if (isDragging) {
-      let newY = e.clientY - initialY;
+      let newY = (e.clientY || e.touches[0].clientY) - initialY;
       dragImage.style.top =
         Math.max(
           0,
@@ -95,23 +102,22 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       if (nearestCircle) {
-        // Get the index from the id
         const index = nearestCircle.id.replace("lb-image-", "");
-
-        // Show the corresponding gallery image
         galleryImages.forEach((image) => {
           image.classList.remove("active");
         });
-
         galleryImages[index].classList.add("active");
       }
     }
-  });
+  }
 
-  document.addEventListener("mouseup", function () {
+  document.addEventListener("mouseup", stopDragging);
+  document.addEventListener("touchend", stopDragging);
+
+  function stopDragging() {
     if (isDragging) {
       isDragging = false;
       dragImage.classList.remove("dragging");
     }
-  });
+  }
 });
