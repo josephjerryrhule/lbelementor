@@ -13,6 +13,7 @@
 
 namespace LBELEMENTOR\ElementorWidgets;
 
+use LBELEMENTOR\ElementorWidgets\Widgets\archiveproducts;
 use LBELEMENTOR\ElementorWidgets\Widgets\buy_button;
 use LBELEMENTOR\ElementorWidgets\Widgets\imagetransform;
 use LBELEMENTOR\ElementorWidgets\Widgets\product_slider;
@@ -64,12 +65,14 @@ final class lbelementor
     require_once __DIR__ . '/widgets/buy-button.php';
     require_once __DIR__ . '/widgets/product-slider.php';
     require_once __DIR__ . '/widgets/imagetransform.php';
+    require_once __DIR__ . '/widgets/archiveproducts.php';
 
     //Instantiate Widgets
     $widgets_manager->register(new products());
     $widgets_manager->register(new buy_button());
     $widgets_manager->register(new product_slider());
     $widgets_manager->register(new imagetransform());
+    $widgets_manager->register(new archiveproducts());
   }
 }
 

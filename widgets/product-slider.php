@@ -9,7 +9,6 @@
 namespace LBELEMENTOR\ElementorWidgets\Widgets;
 
 use Elementor\Widget_Base;
-use PDO;
 
 class product_slider extends Widget_Base
 {

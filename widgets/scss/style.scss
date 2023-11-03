@@ -448,4 +448,25 @@
       display: none;
     }
   }
+
+  .lbgrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 07px;
+    grid-row-gap: 07px;
+  }
+
+  .lbarchiveproduct {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+  }
+
+  .lbelementor-products-image {
+    img {
+      height: 180px;
+    }
+  }
 }
