@@ -676,6 +676,12 @@
       flex-direction: column;
     }
   }
+
+  .lb-wperfumeintensitiy-area {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 }
 
 .flex-center {

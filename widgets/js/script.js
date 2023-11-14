@@ -232,6 +232,22 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+  var momentsSwiper = new Swiper(".wperfumemoment-swiper", {
+    direction: "horizontal",
+    slidesPerView: 1,
+    breakpoints: {
+      375: {
+        spaceBetween: 10,
+      },
+      1220: {
+        slidesPerView: 4,
+        spaceBetween: 10,
+      },
+    },
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
   var swiper = new Swiper(".lbSwiper", {
     loop: true,
     spaceBetween: 0,

@@ -129,36 +129,38 @@ class perfumetest extends Widget_Base
 
       <!-- Step 3 -->
       <form id="step3Form" style="display: none;">
-        <div class="lb-wperfume-content-area">
+        <div class="lb-wperfume-content-area w-full">
           <h1 class="text-center">
             <?php echo __('Which moment of the day is your favorite?', 'lbelementor'); ?>
           </h1>
-          <div class="lb-wperfume-notes-area">
-            <?php
-            $terms_moment = get_terms([
-              'taxonomy' => 'moment',
-              'hide_empty' => false,
-            ]);
+          <div class="swiper wperfumemoment-swiper w-full">
+            <div class="lb-wperfume-notes-area swiper-wrapper w-full">
+              <?php
+              $terms_moment = get_terms([
+                'taxonomy' => 'moment',
+                'hide_empty' => false,
+              ]);
 
-            if (($terms_moment)) :
-              foreach ($terms_moment as $index => $item_moment) :
-                if (function_exists('z_taxonomy_image_url')) :
-                  $image = z_taxonomy_image_url($item_moment->term_id);
-                endif;
+              if (($terms_moment)) :
+                foreach ($terms_moment as $index => $item_moment) :
+                  if (function_exists('z_taxonomy_image_url')) :
+                    $image = z_taxonomy_image_url($item_moment->term_id);
+                  endif;
 
-            ?>
-                <div class="lb-wperfumemoments-radio-item">
-                  <input type="radio" id="<?php echo $item_moment->slug; ?>" name="moment" value="<?php echo $item_moment->slug; ?>" class="visually-hidden" required="required">
-                  <label for="<?php echo $item_moment->slug; ?>" class="lb-wperfumenoteslabel">
-                    <img src="<?php echo esc_url($image); ?>" alt="<?php $item_moment->name; ?>">
-                    <span class="text-center"><?php echo $item_moment->name; ?></span>
-                    <span class="text-center momentdesc"><?php echo $item_moment->description; ?></span>
-                  </label>
-                </div>
-            <?php
-              endforeach;
-            endif;
-            ?>
+              ?>
+                  <div class="lb-wperfumemoments-radio-item swiper-slide">
+                    <input type="radio" id="<?php echo $item_moment->slug; ?>" name="moment" value="<?php echo $item_moment->slug; ?>" class="visually-hidden" required="required">
+                    <label for="<?php echo $item_moment->slug; ?>" class="lb-wperfumenoteslabel">
+                      <img src="<?php echo esc_url($image); ?>" alt="<?php $item_moment->name; ?>">
+                      <span class="text-center"><?php echo $item_moment->name; ?></span>
+                      <span class="text-center momentdesc"><?php echo $item_moment->description; ?></span>
+                    </label>
+                  </div>
+              <?php
+                endforeach;
+              endif;
+              ?>
+            </div>
           </div>
           <button type="button" class="disabled" id="nextStep3">
             <?php echo __('Continue', 'lbelementor'); ?>
