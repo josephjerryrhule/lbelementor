@@ -25,6 +25,161 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+jQuery(document).ready(function ($) {
+  $(".lb-wperfume-radio-item").hover(
+    function () {
+      // On hover, disable other radio items with the same class
+      $(".lb-wperfume-radio-item").not(this).addClass("disabled");
+    },
+    function () {
+      // On hover out, enable all radio items with the same class
+      $(".lb-wperfume-radio-item").removeClass("disabled");
+    }
+  );
+});
+
+jQuery(document).ready(function ($) {
+  $(".lb-wperfumenotes-radio-item").hover(
+    function () {
+      // On hover, disable other radio items with the same class
+      $(".lb-wperfumenotes-radio-item").not(this).addClass("disabled");
+    },
+    function () {
+      // On hover out, enable all radio items with the same class
+      $(".lb-wperfumenotes-radio-item").removeClass("disabled");
+    }
+  );
+});
+
+jQuery(document).ready(($) => {
+  // Disable the Next button initially
+  $("#nextStep1").prop("disabled", true);
+
+  // Initialize a variable to keep track of the currently selected item
+  let selectedRadio = null;
+
+  // Add event listener for radio buttons in Step 1 form
+  $(".lb-wperfume-radio-item").change(function () {
+    // Enable the Next button
+    $("#nextStep1").prop("disabled", false);
+
+    // Add disabled class to other radio items with the same class
+    $(".lb-wperfume-radio-item").not(this).addClass("disabled");
+
+    // Toggle lbselected class on the selected radio item
+    $(this).toggleClass("lbselected");
+
+    // If a radio item was previously selected, remove lbselected class
+    if (selectedRadio !== null && selectedRadio !== this) {
+      $(selectedRadio).removeClass("lbselected");
+    }
+
+    // Remove disabled class from the Next button
+    $("#nextStep1").removeClass("disabled");
+
+    // Update the selectedRadio variable
+    selectedRadio = this;
+  });
+});
+
+jQuery(document).ready(($) => {
+  // Disable the Next button initially
+  $("#nextStep2").prop("disabled", true);
+
+  // Initialize a variable to keep track of the currently selected item
+  let selectedRadio2 = null;
+
+  // Add event listener for radio buttons in Step 1 form
+  $(".lb-wperfumenotes-radio-item").change(function () {
+    // Enable the Next button
+    $("#nextStep2").prop("disabled", false);
+
+    // Add disabled class to other radio items with the same class
+    $(".lb-wperfumenotes-radio-item").not(this).addClass("disabled");
+
+    // Toggle lbselected class on the selected radio item
+    $(this).toggleClass("lbselected");
+
+    // If a radio item was previously selected, remove lbselected class
+    if (selectedRadio2 !== null && selectedRadio2 !== this) {
+      $(selectedRadio2).removeClass("lbselected");
+    }
+
+    // Remove disabled class from the Next button
+    $("#nextStep2").removeClass("disabled");
+
+    // Update the selectedRadio2 variable
+    selectedRadio2 = this;
+  });
+});
+
+jQuery(document).ready(($) => {
+  // Initialize an object to store user selections
+  var userSelections = {};
+
+  // Function to handle form progression
+  function nextStep(stepNumber) {
+    // Store user selections based on the current step
+    if (stepNumber === 1) {
+      userSelections.lbcategory = $("input[name='lbcategory']:checked").val();
+    } else if (stepNumber === 2) {
+      userSelections.notes = $("input[name='notes']:checked").val();
+    } else if (stepNumber === 3) {
+      userSelections.moment = $("input[name='moment']:checked").val();
+    } else if (stepNumber === 4) {
+      userSelections.intensity = $("#intensity").val();
+      // If it's the last step, show the results
+      showResults();
+      $("#step4Form").hide();
+      return; // Stop further progression after showing results
+    }
+
+    // Hide current step
+    $("#step" + stepNumber + "Form").hide();
+
+    // Show next step
+    var nextStepNumber = stepNumber + 1;
+    $("#step" + nextStepNumber + "Form").show();
+  }
+
+  // Function to show results
+  function showResults() {
+    // Perform an AJAX request to fetch results based on userSelections
+    $.ajax({
+      url: custom_script_vars.ajax_url,
+      type: "POST",
+      data: {
+        action: "get_results",
+        userSelections: userSelections,
+      },
+      success: function (response) {
+        // Display the results in the 'results' div
+        $("#results").html(response).show();
+      },
+      error: function (error) {
+        console.log(error);
+      },
+    });
+  }
+
+  // Click event listeners for the buttons
+  $("#nextStep1").on("click", function () {
+    nextStep(1);
+  });
+
+  $("#nextStep2").on("click", function () {
+    nextStep(2);
+  });
+
+  $("#nextStep3").on("click", function () {
+    nextStep(3);
+  });
+
+  $("#nextStep4").on("click", function () {
+    nextStep(4);
+  });
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   var swiper = new Swiper(".lbSwiper", {
     loop: true,

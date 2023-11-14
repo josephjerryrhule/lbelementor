@@ -14,6 +14,10 @@
   position: relative;
 }
 
+.lbabsolute {
+  position: absolute;
+}
+
 .modalabsolute {
   position: absolute;
 }
@@ -294,6 +298,181 @@
 }
 /* End of Product Image Drag Widget */
 
+/* Wear your perfume styles */
+.lbwebformprogress {
+  height: 60px;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .lbwebformprogress-bar {
+    height: 2px;
+    background-color: #000;
+  }
+
+  .lbabsolute {
+    height: 6px;
+    background-color: #ba2b3c;
+    transition: all 0.3s ease-in-out;
+    width: 0%;
+  }
+}
+
+.lb-wperfume-content-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    font-family: "Roboto";
+    font-size: 24px;
+    line-height: 24px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 56px;
+    letter-spacing: 6px;
+  }
+
+  .lb-wperfume-description {
+    font-size: 20px;
+    line-height: 26px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    width: 1px;
+    height: 1px;
+    word-wrap: normal;
+  }
+
+  .lb-wperfume-form-radios {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 70px 0px;
+
+    .lb-wperfumeradiolabel {
+      font-size: 21px;
+      line-height: 25px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 28px 85px;
+      color: #000;
+      border: 2px solid #000;
+      border-radius: 0;
+      font-family: "Roboto";
+      cursor: pointer;
+      transition: all 0.1s ease-in-out;
+      &:hover {
+        background: #000;
+        color: white;
+      }
+    }
+  }
+
+  .lb-wperfume-radio-item.disabled,
+  .lb-wperfumenotes-radio-item.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .lbselected {
+    .lb-wperfumeradiolabel {
+      background: #000;
+      color: white !important;
+    }
+  }
+
+  button {
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: #000;
+    border: 2px solid #000;
+    padding: 30px 40px;
+    border-radius: 0;
+    background: transparent;
+    font-family: "Roboto";
+    &:hover {
+      background: #000;
+      color: white;
+    }
+  }
+
+  button.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+
+.lb-wperfume-notes-area {
+  display: flex;
+  align-items: start;
+  flex-wrap: wrap;
+  margin-bottom: 70px;
+
+  .lb-wperfumenotes-radio-item {
+    flex: 0 25%;
+    padding: 0px 10px;
+    cursor: pointer;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      font-size: 21px;
+      line-height: 25px;
+      color: #000;
+      font-family: "Roboto";
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+    }
+
+    &:hover {
+      border-bottom: 2px solid #000;
+      border-radius: 0;
+    }
+  }
+
+  .lb-wperfumenotes-radio-item.lbselected {
+    border-bottom: 2px solid #000;
+    border-radius: 0;
+  }
+
+  .momentdesc {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 15px;
+    line-height: 15px;
+    letter-spacing: 0;
+  }
+}
+
+.lb-wperfumeintensitiy-area {
+  display: flex;
+  align-items: start;
+  gap: 120px;
+  margin-bottom: 70px;
+  p {
+    font-size: 20px;
+    line-height: 25px;
+    max-width: 150px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #000;
+  }
+}
+/* End of Wear your perfume styles */
+
 @media only screen and (max-width: 768px) {
   .d-lbsm-none {
     display: none;
@@ -467,6 +646,15 @@
   .lbelementor-products-image {
     img {
       height: 180px;
+    }
+  }
+
+  .lb-wperfumetest-widget {
+    padding: 0 15px 100px;
+
+    .lb-wperfume-content-area .lb-wperfume-form-radios {
+      display: flex;
+      flex-direction: column;
     }
   }
 }
