@@ -145,10 +145,17 @@ final class lbelementor
     global $post;
     // Perform the query
     $query = new \WP_Query($args);
-
+?>
+    <div class="w-full text-center wperfume-finalstage">
+      <p><?php echo __('Test completed'); ?></p>
+      <h1 class="text-center">
+        <?php echo __('DISCOVER THE PERFECT FRAGRANCES FOR YOU', 'lbelementor'); ?>
+      </h1>
+    </div>
+    <?php
     // Display the results
     if ($query->have_posts()) {
-?>
+    ?>
       <div class="lbgrid">
         <?php
         while ($query->have_posts()) {
@@ -233,6 +240,13 @@ final class lbelementor
         echo 'No products found.';
       }
       ?>
+      </div>
+      <div class="w-full flex-center">
+        <a href="/wear-your-perfume">
+          <button type="button" class="wperfume-finalbtn">
+            <?php echo __('START AGAIN', 'lbelementor'); ?>
+          </button>
+        </a>
       </div>
   <?php
     wp_die(); // This is required to terminate immediately and return a proper response

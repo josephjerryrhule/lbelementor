@@ -35,9 +35,17 @@ class perfumetest extends Widget_Base
 
   public function get_style_depends()
   {
+    wp_register_style('swiper-style', plugins_url('scss/swiper.min.css', __FILE__));
     wp_register_style('lb-style', plugins_url('scss/style.css', __FILE__));
 
-    return ['lb-style'];
+    return ['swiper-style', 'lb-style'];
+  }
+
+  public function get_script_depends()
+  {
+    wp_register_script('swiperlb-js', plugins_url('js/swiper.js', __FILE__));
+
+    return ['swiperlb-js'];
   }
 
   protected function render()
@@ -81,34 +89,36 @@ class perfumetest extends Widget_Base
 
       <!-- Step 2 -->
       <form id="step2Form" style="display: none;">
-        <div class="lb-wperfume-content-area">
+        <div class="lb-wperfume-content-area w-full">
           <h1 class="text-center">
             <?php echo __('Which notes do you prefer', 'lbelementor'); ?>
           </h1>
-          <div class="lb-wperfume-notes-area">
-            <?php
-            $terms = get_terms([
-              'taxonomy' => 'notes',
-              'hide_empty' => false,
-            ]);
+          <div class="swiper wperfumenote-swiper w-full">
+            <div class="lb-wperfume-notes-area swiper-wrapper w-full">
+              <?php
+              $terms = get_terms([
+                'taxonomy' => 'notes',
+                'hide_empty' => false,
+              ]);
 
-            if (($terms)) :
-              foreach ($terms as $index => $item) :
-                if (function_exists('z_taxonomy_image_url')) :
-                  $image = z_taxonomy_image_url($item->term_id);
-                endif;
-            ?>
-                <div class="lb-wperfumenotes-radio-item">
-                  <input type="radio" id="<?php echo $item->slug; ?>" name="notes" value="<?php echo $item->slug; ?>" class="visually-hidden" required="required">
-                  <label for="<?php echo $item->slug; ?>" class="lb-wperfumenoteslabel">
-                    <img src="<?php echo esc_url($image); ?>" alt="<?php $item->name; ?>">
-                    <?php echo $item->name; ?>
-                  </label>
-                </div>
-            <?php
-              endforeach;
-            endif;
-            ?>
+              if (($terms)) :
+                foreach ($terms as $index => $item) :
+                  if (function_exists('z_taxonomy_image_url')) :
+                    $image = z_taxonomy_image_url($item->term_id);
+                  endif;
+              ?>
+                  <div class="lb-wperfumenotes-radio-item swiper-slide">
+                    <input type="radio" id="<?php echo $item->slug; ?>" name="notes" value="<?php echo $item->slug; ?>" class="visually-hidden" required="required">
+                    <label for="<?php echo $item->slug; ?>" class="lb-wperfumenoteslabel">
+                      <img src="<?php echo esc_url($image); ?>" alt="<?php $item->name; ?>">
+                      <?php echo $item->name; ?>
+                    </label>
+                  </div>
+              <?php
+                endforeach;
+              endif;
+              ?>
+            </div>
           </div>
           <button type="button" class="disabled" id="nextStep2">
             <?php echo __('Continue', 'lbelementor'); ?>
@@ -137,7 +147,7 @@ class perfumetest extends Widget_Base
                 endif;
 
             ?>
-                <div class="lb-wperfumenotes-radio-item">
+                <div class="lb-wperfumemoments-radio-item">
                   <input type="radio" id="<?php echo $item_moment->slug; ?>" name="moment" value="<?php echo $item_moment->slug; ?>" class="visually-hidden" required="required">
                   <label for="<?php echo $item_moment->slug; ?>" class="lb-wperfumenoteslabel">
                     <img src="<?php echo esc_url($image); ?>" alt="<?php $item_moment->name; ?>">

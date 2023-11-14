@@ -275,6 +275,23 @@
   width: 0%;
 }
 
+.wperfume-finalstage p {
+  color: #ba2b3c;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 300 !important;
+  margin-top: -15px;
+  font-family: "Roboto";
+}
+.wperfume-finalstage h1 {
+  font-family: "Roboto";
+  margin: 50px auto 20px;
+  font-size: 24px;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  font-weight: 400;
+}
+
 .lb-wperfume-content-area {
   display: flex;
   flex-direction: column;
@@ -329,7 +346,8 @@
   color: white;
 }
 .lb-wperfume-content-area .lb-wperfume-radio-item.disabled,
-.lb-wperfume-content-area .lb-wperfumenotes-radio-item.disabled {
+.lb-wperfume-content-area .lb-wperfumenotes-radio-item.disabled,
+.lb-wperfume-content-area .lb-wperfumemoments-radio-item.disabled {
   opacity: 0.3;
   cursor: not-allowed;
 }
@@ -358,17 +376,15 @@
 }
 
 .lb-wperfume-notes-area {
-  display: flex;
-  align-items: start;
-  flex-wrap: wrap;
   margin-bottom: 70px;
 }
-.lb-wperfume-notes-area .lb-wperfumenotes-radio-item {
-  flex: 0 25%;
+.lb-wperfume-notes-area .lb-wperfumenotes-radio-item,
+.lb-wperfume-notes-area .lb-wperfumemoments-radio-item {
   padding: 0px 10px;
   cursor: pointer;
 }
-.lb-wperfume-notes-area .lb-wperfumenotes-radio-item label {
+.lb-wperfume-notes-area .lb-wperfumenotes-radio-item label,
+.lb-wperfume-notes-area .lb-wperfumemoments-radio-item label {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -382,11 +398,13 @@
   letter-spacing: 2px;
   cursor: pointer;
 }
-.lb-wperfume-notes-area .lb-wperfumenotes-radio-item:hover {
+.lb-wperfume-notes-area .lb-wperfumenotes-radio-item:hover,
+.lb-wperfume-notes-area .lb-wperfumemoments-radio-item:hover {
   border-bottom: 2px solid #000;
   border-radius: 0;
 }
-.lb-wperfume-notes-area .lb-wperfumenotes-radio-item.lbselected {
+.lb-wperfume-notes-area .lb-wperfumenotes-radio-item.lbselected,
+.lb-wperfume-notes-area .lb-wperfumemoments-radio-item.lbselected {
   border-bottom: 2px solid #000;
   border-radius: 0;
 }
@@ -560,4 +578,25 @@
     display: flex;
     flex-direction: column;
   }
+}
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wperfume-finalbtn {
+  padding: 30px 40px;
+  font-size: 18px;
+  color: #000;
+  border: 2px solid #000;
+  text-transform: uppercase;
+  margin-top: 50px;
+  background: transparent;
+  transition: all 0.3s ease-in-out;
+  font-weight: 400;
+}
+.wperfume-finalbtn:hover {
+  background: #000;
+  color: white;
 }/*# sourceMappingURL=style.css.map */

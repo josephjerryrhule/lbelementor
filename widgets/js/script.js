@@ -114,11 +114,46 @@ jQuery(document).ready(($) => {
 });
 
 jQuery(document).ready(($) => {
+  // Disable the Next button initially
+  $("#nextStep3").prop("disabled", true);
+
+  // Initialize a variable to keep track of the currently selected item
+  let selectedRadio3 = null;
+
+  // Add event listener for radio buttons in Step 1 form
+  $(".lb-wperfumemoments-radio-item").change(function () {
+    // Enable the Next button
+    $("#nextStep3").prop("disabled", false);
+
+    // Add disabled class to other radio items with the same class
+    $(".lb-wperfumemoments-radio-item").not(this).addClass("disabled");
+
+    // Toggle lbselected class on the selected radio item
+    $(this).toggleClass("lbselected");
+
+    // If a radio item was previously selected, remove lbselected class
+    if (selectedRadio3 !== null && selectedRadio3 !== this) {
+      $(selectedRadio3).removeClass("lbselected");
+    }
+
+    // Remove disabled class from the Next button
+    $("#nextStep3").removeClass("disabled");
+
+    // Update the selectedRadio2 variable
+    selectedRadio3 = this;
+  });
+});
+
+jQuery(document).ready(($) => {
   // Initialize an object to store user selections
   var userSelections = {};
 
   // Function to handle form progression
   function nextStep(stepNumber) {
+    // Update the progress bar width based on the current step
+    var progressBarWidth = stepNumber * (100 / 4); // Assuming 5 steps, adjust as needed
+    $(".lbabsolute").css("width", progressBarWidth + "%");
+
     // Store user selections based on the current step
     if (stepNumber === 1) {
       userSelections.lbcategory = $("input[name='lbcategory']:checked").val();
@@ -177,6 +212,22 @@ jQuery(document).ready(($) => {
 
   $("#nextStep4").on("click", function () {
     nextStep(4);
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  var notesSwiper = new Swiper(".wperfumenote-swiper", {
+    direction: "horizontal",
+    slidesPerView: 1,
+    breakpoints: {
+      375: {
+        spaceBetween: 10,
+      },
+      1220: {
+        slidesPerView: 4,
+        spaceBetween: 10,
+      },
+    },
   });
 });
 
