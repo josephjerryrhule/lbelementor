@@ -123,6 +123,7 @@ class perfumetest extends Widget_Base
           <button type="button" class="disabled" id="nextStep2">
             <?php echo __('Continue', 'lbelementor'); ?>
           </button>
+          <p id="stepback" class="text-center"><?php echo __('<< Back', 'lbelementor'); ?></p>
         </div>
       </form>
       <!-- End of Step 2 -->
@@ -165,6 +166,7 @@ class perfumetest extends Widget_Base
           <button type="button" class="disabled" id="nextStep3">
             <?php echo __('Continue', 'lbelementor'); ?>
           </button>
+          <p id="stepback" class="text-center"><?php echo __('<< Back', 'lbelementor'); ?></p>
         </div>
       </form>
       <!-- End of Step 3 -->
@@ -175,7 +177,7 @@ class perfumetest extends Widget_Base
           <h1 class="text-center">
             <?php echo __('you prefer a perfume that is...', 'lbelementor'); ?>
           </h1>
-          <div class="lb-wperfumeintensitiy-area">
+          <div class="lb-wperfumeintensitiy-area d-lbsm-none">
             <p class="min-label">Light and Discrete</p>
             <input type="range" id="intensity" name="intensity" min="1" max="100">
             <p class="max-label">Intense and Persistent</p>
@@ -183,6 +185,7 @@ class perfumetest extends Widget_Base
           <button type="button" id="nextStep4">
             <?php echo __('Continue', 'lbelementor'); ?>
           </button>
+          <p id="stepback" class="text-center"><?php echo __('<< Back', 'lbelementor'); ?></p>
         </div>
       </form>
       <!-- End of Step 4 -->

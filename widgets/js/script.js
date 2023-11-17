@@ -213,6 +213,22 @@ jQuery(document).ready(($) => {
   $("#nextStep4").on("click", function () {
     nextStep(4);
   });
+
+  // Click event listener for the "Step Back" button
+  $("#stepback").on("click", function () {
+    var currentStep = $(".lbabsolute").width() / (100 / 4) + 1; // Calculate current step based on progress bar width
+    var previousStep = Math.max(currentStep - 1, 1); // Ensure previous step is at least 1
+
+    // Hide current step
+    $("#step" + currentStep + "Form").hide();
+
+    // Show previous step
+    $("#step" + previousStep + "Form").show();
+
+    // Update the progress bar width
+    var progressBarWidth = (previousStep - 1) * (100 / 4);
+    $(".lbabsolute").css("width", progressBarWidth + "%");
+  });
 });
 
 document.addEventListener("DOMContentLoaded", () => {

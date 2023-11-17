@@ -430,10 +430,22 @@
   color: #000;
 }
 
+#stepback {
+  margin-top: 20px;
+  color: rgba(0, 0, 0, 0.5019607843);
+  font-size: 15px;
+  line-height: 18px;
+  text-transform: uppercase;
+  font-weight: 400;
+  padding: 20px 40px;
+  cursor: pointer;
+}
+
 /* End of Wear your perfume styles */
+/* Mobile Styles */
 @media only screen and (max-width: 768px) {
   .d-lbsm-none {
-    display: none;
+    display: none !important;
   }
   .d-lbsm-block {
     display: block;

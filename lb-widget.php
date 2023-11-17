@@ -94,53 +94,42 @@ final class lbelementor
   // AJAX callback function to retrieve results
   public function get_results_callback()
   {
-    $user_selections = $_POST['userSelections'];
+    $lbcategory = sanitize_text_field($_POST['userSelections']['lbcategory']);
+    $notes = sanitize_text_field($_POST['userSelections']['notes']);
+    $moment = sanitize_text_field($_POST['userSelections']['moment']);
 
     // Define default query arguments
     $args = array(
-      'post_type' => 'lbproducts',
+      'post_type' => 'lbproducts', // Adjust to the correct post type name
+      'posts_per_page' => -1, // Display all posts, adjust as needed
     );
 
-    // Modify the query based on user selections
-    if (!empty($user_selections['lbcategory']) || !empty($user_selections['notes']) || !empty($user_selections['moment'])) {
-      $args['tax_query']['relation'] = 'OR'; // Use OR operator
+    $args['tax_query'][] = [
+      'relation' => 'AND',
+      [
+        'taxonomy' => 'lbproductcategory',
+        'field' => 'slug',
+        'terms' => $lbcategory,
+      ]
+    ];
 
-
-      if (!empty($user_selections['lbcategory'])) {
-        $args['tax_query'][] = array(
-          'taxonomy' => 'lbcategory',  // Replace 'lbcategory' with your actual taxonomy name for category
-          'field'    => 'slug',       // Adjust the field as needed
-          'terms'    => $user_selections['lbcategory'],
-        );
-      }
-
-      if (!empty($user_selections['notes'])) {
-        $args['tax_query'][] = array(
-          'taxonomy' => 'notes',  // Replace 'notes' with your actual taxonomy name
-          'field'    => 'slug',   // Adjust the field as needed
-          'terms'    => $user_selections['notes'],
-        );
-      }
-
-      if (!empty($user_selections['moment'])) {
-        $args['tax_query'][] = array(
-          'taxonomy' => 'moment',  // Replace 'moment' with your actual taxonomy name
-          'field'    => 'slug',    // Adjust the field as needed
-          'terms'    => $user_selections['moment'],
-        );
-      }
-    }
-
-    if (!empty($user_selections['intensity'])) {
-      $args['meta_query'][] = array(
-        'key'     => 'intensity',  // Replace 'intensity' with your actual custom field name
-        'value'   => $user_selections['intensity'],
-        'compare' => '=',  // Adjust the comparison based on your needs
-        'type'    => 'NUMERIC',  // Adjust the type based on your custom field type
+    // Taxonomy query for notes
+    if (!empty($notes)) {
+      $args['tax_query'][] = array(
+        'taxonomy' => 'notes',
+        'field' => 'slug',
+        'terms' => $notes,
       );
     }
 
-    // Add more conditions based on other user selections
+    // Taxonomy query for moment
+    if (!empty($moment)) {
+      $args['tax_query'][] = array(
+        'taxonomy' => 'moment',
+        'field' => 'slug',
+        'terms' => $moment,
+      );
+    }
 
     global $post;
     // Perform the query
