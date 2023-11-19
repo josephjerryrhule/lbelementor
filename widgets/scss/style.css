@@ -186,17 +186,32 @@
   padding-top: 27px;
 }
 
+.lbwflex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: end;
+}
+.lbwflex .lbarchiveproduct {
+  flex-basis: 33%;
+}
+.lbwflex .lb-elementor-buybutton {
+  display: flex;
+  justify-content: center;
+  padding-top: 27px;
+}
+
 /* Product Slider Styles */
 .lbproduct-slider img {
   width: 100% !important;
-  height: 710px !important;
+  height: 500px !important;
   object-fit: cover;
-  object-position: bottom center;
+  object-position: 50% 50%;
 }
 
 .lbproduct-thumb img {
   width: 100% !important;
-  height: 202px !important;
+  height: 197px !important;
   object-fit: cover;
   object-position: center;
 }

@@ -295,13 +295,11 @@ document.addEventListener("DOMContentLoaded", () => {
     slidesPerView: 4,
     freeMode: true,
     watchSlidesProgress: true,
-    autoplay: true,
   });
 
   var swiper2 = new Swiper(".lbSwiper2", {
     loop: true,
     spaceBetween: 0,
-    autoplay: true,
     thumbs: {
       swiper: swiper,
     },

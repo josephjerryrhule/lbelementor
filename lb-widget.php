@@ -145,7 +145,7 @@ final class lbelementor
     // Display the results
     if ($query->have_posts()) {
     ?>
-      <div class="lbgrid">
+      <div class="lbwflex">
         <?php
         while ($query->have_posts()) {
           $query->the_post();
