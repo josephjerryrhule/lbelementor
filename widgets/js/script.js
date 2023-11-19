@@ -190,36 +190,44 @@ jQuery(document).ready(($) => {
       success: function (response) {
         // Display the results in the 'results' div
         $("#results").html(response).show();
+
+        // Initialize the modal after displaying the results
+        initModal();
       },
       error: function (error) {
         console.log(error);
       },
     });
 
-    const btnws = document.querySelectorAll(".lbwmodalbtn");
-    const modalws = document.querySelectorAll(".lb-elementor-modal");
-    const dialogws = document.querySelectorAll(".lb-elementor-modaldialog");
-    const closews = document.querySelectorAll(".lb-modal-close");
+    // Function to initialize the modal
+    function initModal() {
+      const btnws = $(".lbwmodalbtn");
+      const modalws = $(".lb-elementor-modal");
+      const dialogws = $(".lb-elementor-modaldialog");
+      const closews = $(".lb-modal-close");
 
-    btnws.forEach((btn, index) => {
-      btn.addEventListener("click", () => {
-        const modal = modalws[index];
-        const dialog = dialogws[index];
-        const close = closews[index];
+      btnws.on("click", function () {
+        const index = btnws.index(this);
+        const modal = modalws.eq(index);
+        const dialog = dialogws.eq(index);
 
         if (modal && dialog) {
-          modal.classList.add("open");
-          dialog.classList.add("open");
+          modal.addClass("open");
+          dialog.addClass("open");
         }
-
-        close.addEventListener("click", () => {
-          if (modal && dialog) {
-            modal.classList.remove("open");
-            dialog.classList.remove("open");
-          }
-        });
       });
-    });
+
+      closews.on("click", function () {
+        const index = closews.index(this);
+        const modal = modalws.eq(index);
+        const dialog = dialogws.eq(index);
+
+        if (modal && dialog) {
+          modal.removeClass("open");
+          dialog.removeClass("open");
+        }
+      });
+    }
   }
 
   // Click event listeners for the buttons
