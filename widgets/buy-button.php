@@ -83,12 +83,6 @@ class buy_button extends Widget_Base
     <div class="lb-elementor-buybutton">
       <button type="button" class="lbmodalbtn">
         <span><?php echo __($title, 'lbelementor'); ?></span>
-        <span class="lbbtn-icon">
-          <svg width="498" height="625" viewBox="0 0 498 625" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15.6667 210C15.6667 173.181 45.5144 143.333 82.3334 143.333H415.667C452.487 143.333 482.333 173.181 482.333 210V510C482.333 565.23 437.563 610 382.333 610H115.667C60.4384 610 15.6667 565.23 15.6667 510V210Z" stroke="currentColor" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M349 243.333V110C349 54.7717 304.23 10 249 10C193.77 10 149 54.7717 149 110V243.333" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </span>
       </button>
     </div>
 

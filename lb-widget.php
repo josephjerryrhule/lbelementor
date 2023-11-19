@@ -171,7 +171,7 @@ final class lbelementor
             </a>
 
             <div class="lb-elementor-buybutton">
-              <button type="button" class="lbmodalbtn">
+              <button type="button" class="lbwmodalbtn">
                 <span><?php echo __('Buy', 'lbelementor'); ?></span>
                 <span class="lbbtn-icon">
                   <svg width="498" height="625" viewBox="0 0 498 625" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -220,7 +220,6 @@ final class lbelementor
                 </div>
               </div>
             </div>
-
           </div>
       <?php
         }

@@ -90,6 +90,26 @@ class archiveproducts extends Widget_Base
       ]
     );
 
+    $sorts = [];
+    $sorts_args = [
+      'taxonomy' => 'sort',
+      'hide_empty' => false,
+    ];
+    $sorts_categories = get_categories($sorts_args);
+    foreach ($sorts_categories as $categorysorts) {
+      $sorts[$categorysorts->slug] = $categorysorts->name;
+    }
+
+    $this->add_control(
+      'lbproduct-sorts',
+      [
+        'label' => __('Sorts', 'lbelementor'),
+        'type' => \Elementor\Controls_Manager::SELECT2,
+        'multiple' => true,
+        'options' => $sorts,
+      ]
+    );
+
     $this->add_control(
       'source-order',
       [
@@ -113,6 +133,7 @@ class archiveproducts extends Widget_Base
     $limit = $settings['numberpost'];
     $categoryname = $settings['lbproduct-categories'];
     $order = $settings['source-order'];
+    $sortitems = $settings['lbproduct-sorts'];
     $args = [
       'post_type' => 'lbproducts',
       'posts_per_page' => $limit,
@@ -132,83 +153,114 @@ class archiveproducts extends Widget_Base
 
     if ($post_query->have_posts()) :
 ?>
+      <div class="w-full text-right lbproduct-archiveselectfield">
+        <select id="selectedSortsDropdown" class="lb-selectfield">
+          <?php
+          foreach ($sortitems as $sortitem) :
+            $term = get_the_terms($sortitem, 'sort');
+
+            print_r($term);
+            if ($term && !is_wp_error($term)) :
+          ?>
+              <option value="<?php echo __(esc_attr($term_id), 'lbelementor'); ?>">
+                <?php echo __($term->name, 'lbelementor'); ?>
+              </option>
+          <?php
+            endif;
+          endforeach;
+          ?>
+        </select>
+      </div>
+
       <div class="lbgrid">
         <?php
         while ($post_query->have_posts()) :
           $post_query->the_post();
           $secimage = get_field('lbsecondfeatured');
           $lbbrands = get_field('lbbrands');
+          $sort_terms = get_the_terms(get_the_ID(), 'sort');
+          // Check if terms are found
+          if ($sort_terms && !is_wp_error($sort_terms)) {
+            $sort_classes = array();
+
+            // Loop through each term and add their names as classes
+            foreach ($sort_terms as $term) {
+              $sort_classes[] = sanitize_title_with_dashes($term->name);
+            }
         ?>
-          <div class="lbarchiveproduct">
-            <a href="<?php echo esc_url(the_permalink()); ?>">
-              <div class="lbelementor-products-image w-full">
-                <?php the_post_thumbnail('full', ['class' => 'lbfirstimage']); ?>
-                <img src="<?php echo esc_url($secimage); ?>" alt="Product Image" class="absolute" />
-                <div class="mt-25">
-                  <span class="lb-product-title">
-                    <?= __($post->post_title, 'lbelementor'); ?>
-                  </span>
-                  <br />
-                  <span>
-                    <?= __($post->post_excerpt, 'lbelementor'); ?>
-                  </span>
+            <div class="lbarchiveproduct <?php echo implode(' ', $sort_classes); ?>">
+              <a href="<?php echo esc_url(the_permalink()); ?>">
+                <div class="lbelementor-products-image w-full">
+                  <?php the_post_thumbnail('full', ['class' => 'lbfirstimage']); ?>
+                  <img src="<?php echo esc_url($secimage); ?>" alt="Product Image" class="absolute" />
+                  <div class="mt-25">
+                    <span class="lb-product-title">
+                      <?= __($post->post_title, 'lbelementor'); ?>
+                    </span>
+                    <br />
+                    <span>
+                      <?= __($post->post_excerpt, 'lbelementor'); ?>
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </a>
+              </a>
 
-            <div class="lb-elementor-buybutton">
-              <button type="button" class="lbmodalbtn">
-                <span><?php echo __('Buy', 'lbelementor'); ?></span>
-                <span class="lbbtn-icon">
-                  <svg width="498" height="625" viewBox="0 0 498 625" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M15.6667 210C15.6667 173.181 45.5144 143.333 82.3334 143.333H415.667C452.487 143.333 482.333 173.181 482.333 210V510C482.333 565.23 437.563 610 382.333 610H115.667C60.4384 610 15.6667 565.23 15.6667 510V210Z" stroke="currentColor" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M349 243.333V110C349 54.7717 304.23 10 249 10C193.77 10 149 54.7717 149 110V243.333" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-                </span>
-              </button>
-            </div>
-
-            <div class="lb-elementor-modal w-full modalfixed">
-              <div class="lb-elementor-modaldialog">
-                <div class="lb-modal-header">
-                  <h5>
-                    <?php echo __('PROSEGUENDO SARAI REINDIRIZZATO SUL SITO DI UNO DEI NOSTRI PARTNER DOVE POTRAI ACQUISTARE LE NOSTRE FRAGRANZE', 'lbelementor'); ?>
-                  </h5>
-                  <span class="lb-modal-close">
-                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
-                      <path d="M31.667 10.683l-2.35-2.35-9.317 9.317-9.317-9.317-2.35 2.35 9.317 9.317-9.317 9.317 2.35 2.35 9.317-9.317 9.317 9.317 2.35-2.35-9.317-9.317z"></path>
+              <div class="lb-elementor-buybutton">
+                <button type="button" class="lbmodalbtn">
+                  <span><?php echo __('Buy', 'lbelementor'); ?></span>
+                  <span class="lbbtn-icon">
+                    <svg width="498" height="625" viewBox="0 0 498 625" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M15.6667 210C15.6667 173.181 45.5144 143.333 82.3334 143.333H415.667C452.487 143.333 482.333 173.181 482.333 210V510C482.333 565.23 437.563 610 382.333 610H115.667C60.4384 610 15.6667 565.23 15.6667 510V210Z" stroke="currentColor" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M349 243.333V110C349 54.7717 304.23 10 249 10C193.77 10 149 54.7717 149 110V243.333" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                   </span>
-                </div>
-                <div class="lb-modal-body">
-                  <div class="lb-retails">
-                    <?php
-                    if ($lbbrands) :
-                      foreach ($lbbrands as $brand) {
-                        $image = $brand['lbbrandimage'];
-                        $link = $brand['lbbrandurl'];
-                    ?>
-                        <div class="lb_field__item">
-                          <div class="lb_field_item">
-                            <img src="<?php echo esc_url($image); ?>" alt="Retailer">
-                            <a href="<?php echo esc_url($link); ?>" target="_blank">
-                              <button type="button">
-                                <?php echo __('Buy', 'lbelementor'); ?>
-                              </button>
-                            </a>
+                </button>
+              </div>
+
+              <div class="lb-elementor-modal w-full modalfixed">
+                <div class="lb-elementor-modaldialog">
+                  <div class="lb-modal-header">
+                    <h5>
+                      <?php echo __('PROSEGUENDO SARAI REINDIRIZZATO SUL SITO DI UNO DEI NOSTRI PARTNER DOVE POTRAI ACQUISTARE LE NOSTRE FRAGRANZE', 'lbelementor'); ?>
+                    </h5>
+                    <span class="lb-modal-close">
+                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+                        <path d="M31.667 10.683l-2.35-2.35-9.317 9.317-9.317-9.317-2.35 2.35 9.317 9.317-9.317 9.317 2.35 2.35 9.317-9.317 9.317 9.317 2.35-2.35-9.317-9.317z"></path>
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="lb-modal-body">
+                    <div class="lb-retails">
+                      <?php
+                      if ($lbbrands) :
+                        foreach ($lbbrands as $brand) {
+                          $image = $brand['lbbrandimage'];
+                          $link = $brand['lbbrandurl'];
+                      ?>
+                          <div class="lb_field__item">
+                            <div class="lb_field_item">
+                              <img src="<?php echo esc_url($image); ?>" alt="Retailer">
+                              <a href="<?php echo esc_url($link); ?>" target="_blank">
+                                <button type="button">
+                                  <?php echo __('Buy', 'lbelementor'); ?>
+                                </button>
+                              </a>
+                            </div>
                           </div>
-                        </div>
-                    <?php
-                      }
-                    endif;
-                    ?>
+                      <?php
+                        }
+                      endif;
+                      ?>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-          </div>
+            </div>
         <?php
+          }
+
+
         endwhile;
         ?>
       </div>

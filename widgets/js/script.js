@@ -195,6 +195,31 @@ jQuery(document).ready(($) => {
         console.log(error);
       },
     });
+
+    const btnws = document.querySelectorAll(".lbwmodalbtn");
+    const modalws = document.querySelectorAll(".lb-elementor-modal");
+    const dialogws = document.querySelectorAll(".lb-elementor-modaldialog");
+    const closews = document.querySelectorAll(".lb-modal-close");
+
+    btnws.forEach((btn, index) => {
+      btn.addEventListener("click", () => {
+        const modal = modalws[index];
+        const dialog = dialogws[index];
+        const close = closews[index];
+
+        if (modal && dialog) {
+          modal.classList.add("open");
+          dialog.classList.add("open");
+        }
+
+        close.addEventListener("click", () => {
+          if (modal && dialog) {
+            modal.classList.remove("open");
+            dialog.classList.remove("open");
+          }
+        });
+      });
+    });
   }
 
   // Click event listeners for the buttons
