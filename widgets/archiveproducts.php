@@ -140,16 +140,8 @@ class archiveproducts extends Widget_Base
           $secimage = get_field('lbsecondfeatured');
           $lbbrands = get_field('lbbrands');
           $sort_terms = get_the_terms(get_the_ID(), 'sort');
-          // Check if terms are found
-          if ($sort_terms && !is_wp_error($sort_terms)) {
-            $sort_classes = array();
-
-            // Loop through each term and add their names as classes
-            foreach ($sort_terms as $term) {
-              $sort_classes[] = sanitize_title_with_dashes($term->name);
-            }
         ?>
-            <div class="lbarchiveproduct <?php echo implode(' ', $sort_classes); ?>">
+            <div class="lbarchiveproduct">
               <a href="<?php echo esc_url(the_permalink()); ?>">
                 <div class="lbelementor-products-image w-full">
                   <?php the_post_thumbnail('full', ['class' => 'lbfirstimage']); ?>
