@@ -90,26 +90,6 @@ class archiveproducts extends Widget_Base
       ]
     );
 
-    $sorts = [];
-    $sorts_args = [
-      'taxonomy' => 'sort',
-      'hide_empty' => false,
-    ];
-    $sorts_categories = get_categories($sorts_args);
-    foreach ($sorts_categories as $categorysorts) {
-      $sorts[$categorysorts->slug] = $categorysorts->name;
-    }
-
-    $this->add_control(
-      'lbproduct-sorts',
-      [
-        'label' => __('Sorts', 'lbelementor'),
-        'type' => \Elementor\Controls_Manager::SELECT2,
-        'multiple' => true,
-        'options' => $sorts,
-      ]
-    );
-
     $this->add_control(
       'source-order',
       [
@@ -133,7 +113,6 @@ class archiveproducts extends Widget_Base
     $limit = $settings['numberpost'];
     $categoryname = $settings['lbproduct-categories'];
     $order = $settings['source-order'];
-    $sortitems = $settings['lbproduct-sorts'];
     $args = [
       'post_type' => 'lbproducts',
       'posts_per_page' => $limit,
@@ -153,25 +132,7 @@ class archiveproducts extends Widget_Base
 
     if ($post_query->have_posts()) :
 ?>
-      <div class="w-full text-right lbproduct-archiveselectfield">
-        <select id="selectedSortsDropdown" class="lb-selectfield">
-          <?php
-          foreach ($sortitems as $sortitem) :
-            $term = get_the_terms($sortitem, 'sort');
-
-            print_r($term);
-            if ($term && !is_wp_error($term)) :
-          ?>
-              <option value="<?php echo __(esc_attr($term_id), 'lbelementor'); ?>">
-                <?php echo __($term->name, 'lbelementor'); ?>
-              </option>
-          <?php
-            endif;
-          endforeach;
-          ?>
-        </select>
-      </div>
-
+      
       <div class="lbgrid">
         <?php
         while ($post_query->have_posts()) :
@@ -259,8 +220,6 @@ class archiveproducts extends Widget_Base
             </div>
         <?php
           }
-
-
         endwhile;
         ?>
       </div>
