@@ -139,7 +139,6 @@ class archiveproducts extends Widget_Base
           $post_query->the_post();
           $secimage = get_field('lbsecondfeatured');
           $lbbrands = get_field('lbbrands');
-          $sort_terms = get_the_terms(get_the_ID(), 'sort');
         ?>
             <div class="lbarchiveproduct">
               <a href="<?php echo esc_url(the_permalink()); ?>">
